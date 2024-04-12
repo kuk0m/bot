@@ -5,7 +5,9 @@ import time
 token = "7149459351:AAHT2hba2SSTthFjyUW2gjFHogLKX7eDkAA"
 bot = telebot.TeleBot(token)
 banwords=['durak', 'ba']
-
+who1 = ["Весёлый", "Злой", "Крутой"]
+who2 = ["Осьменог", "Кот", "Памперс"]
+who3 = ["Александр", "Генадий", "Артём"]
 
 coin_flip =["orel", "reshka"]
 # print(random.randint(1,10))
@@ -64,7 +66,12 @@ def answer(call):
         bot.send_message(call.message.chat.id, "Вы выйграли")
     else:
         bot.send_message(call.message.chat.id, "Вы проиграли")
-
+@bot.message_handler(commands=["who"])
+def text(message):
+    x = (random.choice(who1))
+    y = (random.choice(who2))
+    z = (random.choice(who3))
+    bot.send_message(message.chat.id, f"Сегодня вы {x} {y} {z}")
 @bot.message_handler(content_types=["text"])
 def text(message):
     if message.text.lower() == "горы":
@@ -80,6 +87,7 @@ def text(message):
     elif message.text in banwords:
         bot.ban_chat_member(message.chat.id, message.from_user.id)
         bot.send_message(message.chat.id, "выгнан")
+
 
 
 
