@@ -2,6 +2,7 @@ import telebot
 from telebot import types
 import random
 import time
+import random
 token = "7149459351:AAHT2hba2SSTthFjyUW2gjFHogLKX7eDkAA"
 bot = telebot.TeleBot(token)
 banwords=['durak', 'ba']
@@ -28,7 +29,7 @@ def help(message):
 
 @bot.message_handler(commands=["picture"])
 def picture(message):
-    img = open("media/picture.jpg", 'rb')
+    img = open("media/picture.jpeg", 'rb')
     bot.send_photo(message.chat.id, img)
 
 @bot.message_handler(commands=["me"])
@@ -72,6 +73,21 @@ def text(message):
     y = (random.choice(who2))
     z = (random.choice(who3))
     bot.send_message(message.chat.id, f"Сегодня вы {x} {y} {z}")
+
+
+@bot.message_handler(commands=["game"])
+def text(message):
+    bot.send_message(message.chat.id, f" В этой игре я загадываю число от 1 до 100, и вы угадываете, а я говорю: больше или меньше")
+
+    user_id = message.from_user.chat.text
+    x = int(random.randint(0, 100))
+    y= int(user_id)
+    if y == x:
+        bot.send_message(message.chat.id,"Вы угадали!")
+    if y >= x:
+        bot.send_message(message.chat.id, "меньше")
+    if y <= x:
+        bot.send_message(message.chat.id, "больше")
 @bot.message_handler(content_types=["text"])
 def text(message):
     if message.text.lower() == "горы":
@@ -87,6 +103,7 @@ def text(message):
     elif message.text in banwords:
         bot.ban_chat_member(message.chat.id, message.from_user.id)
         bot.send_message(message.chat.id, "выгнан")
+
 
 
 
