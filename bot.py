@@ -5,6 +5,8 @@ import time
 import random
 token = "7149459351:AAHT2hba2SSTthFjyUW2gjFHogLKX7eDkAA"
 bot = telebot.TeleBot(token)
+x = random.randint(1, 100)
+chat_id = 6152371245
 banwords=['durak', 'ba']
 who1 = ["Весёлый", "Злой", "Крутой"]
 who2 = ["Осьменог", "Кот", "Памперс"]
@@ -25,7 +27,7 @@ def hello(message):
 
 @bot.message_handler(commands=["help"])
 def help(message):
-    bot.send_message(message.chat.id, "cgubenowfimp")
+    bot.send_message(message.chat.id, f"{message.chat.id}cgubenowfimp")
 
 @bot.message_handler(commands=["picture"])
 def picture(message):
@@ -77,17 +79,41 @@ def text(message):
 
 @bot.message_handler(commands=["game"])
 def text(message):
+    print(message)
     bot.send_message(message.chat.id, f" В этой игре я загадываю число от 1 до 100, и вы угадываете, а я говорю: больше или меньше")
 
-    user_id = message.from_user.chat.text
-    x = int(random.randint(0, 100))
-    y= int(user_id)
-    if y == x:
-        bot.send_message(message.chat.id,"Вы угадали!")
-    if y >= x:
-        bot.send_message(message.chat.id, "меньше")
-    if y <= x:
-        bot.send_message(message.chat.id, "больше")
+@bot.message_handler(func=lambda message:True)
+def text(message):
+    try:
+        print(x)
+        y = int(message.text)
+        if y == x:
+            bot.send_message(message.chat.id,"Вы угадали!")
+        elif y >= x:
+            bot.send_message(message.chat.id, "меньше")
+        elif y <= x:
+            bot.send_message(message.chat.id, "больше")
+    except ValueError:
+        bot.send_message(message.chat.id, "Введите число")
+    # y = int(user_message.text)
+    # bot.send_message(message.chat.id, f" OK")
+    # x = int(random.randint(0, 100))
+    #
+    # if y == x:
+    #     bot.send_message(message.chat.id,"Вы угадали!")
+    # elif y >= x:
+    #     bot.send_message(message.chat.id, "меньше")
+    # elif y <= x:
+    #     bot.send_message(message.chat.id, "больше"
+
+# @bot.message_handler(chat_id=[chat_id], commands=['update'])
+# def update_command(message):
+
+
+
+
+
+
 @bot.message_handler(content_types=["text"])
 def text(message):
     if message.text.lower() == "горы":
@@ -106,6 +132,15 @@ def text(message):
 
 
 
-
-
+# @bot.message_handler(chat_id=[-4151645209], commands=['update'])
+# def update_command(message):
+#     bot.set_my_commands(
+#     commands=[telebot.types.BotCommand('start', 'Начало работы'),
+#               telebot.types.BotCommand('game', 'Игра с числами'),
+#               telebot.types.BotCommand('random', 'Орёл или решка'),
+#               telebot.types.BotCommand('who', 'кто ты по сегодня'),
+#               telebot.types.BotCommand('me', 'Информация обо мне'),
+#               telebot.types.BotCommand('picture', 'Картинка')
+#               ],
+#                     scope=telebot.types.BotCommandScopeChat(-4151645209))
 bot.polling(non_stop=True)
