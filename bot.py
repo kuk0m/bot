@@ -31,14 +31,14 @@ def help(message):
 
 @bot.message_handler(commands=["picture"])
 def picture(message):
-    img = open("media/picture.jpeg", 'rb')
+    img = open("media/picture.jpg", 'rb')
     bot.send_photo(message.chat.id, img)
 
 @bot.message_handler(commands=["me"])
 def text(message):
     markup1 = types.InlineKeyboardMarkup()
     buttom1 = types.InlineKeyboardButton("whatsup", url='https://github.com/kuk0m/bot/blob/main/test.py')
-    buttom2 = types.InlineKeyboardButton("gjhfk", url='https://zoo-dom.com/oleni.html')
+    buttom2 = types.InlineKeyboardButton("жми, жми", url='https://zoo-dom.com/oleni.html')
     markup1.row(buttom1, buttom2)
     bot.send_message(message.chat.id, "me", reply_markup=markup1)
 
@@ -54,7 +54,7 @@ def text(message):
 @bot.callback_query_handler(func=lambda call:True)
 def answer(call):
     x = (random.choice(coin_flip))
-    ppp = open("media/coin-flip-16.gif", 'rb')
+    ppp = open("media/cf.gif", 'rb')
     if call.data=='orel':
 
 
@@ -88,7 +88,7 @@ def text(message):
         print(x)
         y = int(message.text)
         if y == x:
-            bot.send_message(message.chat.id,"Вы угадали!")
+            bot.send_message(message.chat.id, "Вы угадали!")
         elif y >= x:
             bot.send_message(message.chat.id, "меньше")
         elif y <= x:
@@ -120,7 +120,7 @@ def text(message):
         img = open("media/Горы.jpg", 'rb')
         bot.send_photo(message.chat.id, img)
     elif message.text.lower() == "лев":
-        img = open("media/лев.jpg", 'rb')
+        img = open("media/Лев.jpg", 'rb')
         bot.send_photo(message.chat.id, img)
     elif message.text.lower() == "дельфин":
         imp = open("media/дельфин.jpg", 'rb')
