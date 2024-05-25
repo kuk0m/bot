@@ -3,9 +3,10 @@ from telebot import types
 import random
 import time
 import random
+import os
+print(os.path)
 token = "7149459351:AAHT2hba2SSTthFjyUW2gjFHogLKX7eDkAA"
 bot = telebot.TeleBot(token)
-x = random.randint(1, 100)
 chat_id = 6152371245
 banwords=['durak', 'ba']
 who1 = ["Весёлый", "Злой", "Крутой"]
@@ -31,7 +32,7 @@ def help(message):
 
 @bot.message_handler(commands=["picture"])
 def picture(message):
-    img = open("media/picture.jpg", 'rb')
+    img = open(r"C:\Users\Ученик\PycharmProjects\pythonProject1\media\picture.jpg", 'rb')
     bot.send_photo(message.chat.id, img)
 
 @bot.message_handler(commands=["me"])
@@ -53,8 +54,8 @@ def text(message):
 
 @bot.callback_query_handler(func=lambda call:True)
 def answer(call):
-    x = (random.choice(coin_flip))
-    ppp = open("media/cf.gif", 'rb')
+    cf = (random.choice(coin_flip))
+    ppp = open(r"C:\Users\Ученик\PycharmProjects\pythonProject1\media\picture.jpg", 'rb')
     if call.data=='orel':
 
 
@@ -64,8 +65,8 @@ def answer(call):
     bot.send_animation(call.message.chat.id, ppp)
 
     time.sleep(2)
-    bot.send_message(call.message.chat.id, f"Выпал {x} ")
-    if x == call.data:
+    bot.send_message(call.message.chat.id, f"Выпал {cf} ")
+    if cf == call.data:
         bot.send_message(call.message.chat.id, "Вы выйграли")
     else:
         bot.send_message(call.message.chat.id, "Вы проиграли")
@@ -74,16 +75,33 @@ def text(message):
     x = (random.choice(who1))
     y = (random.choice(who2))
     z = (random.choice(who3))
-    bot.send_message(message.chat.id, f"Сегодня вы {x} {y} {z}")
+    bot.send_message(message.chat.id, bot.send_message(message.chat.id, f"{x} Сегодня вы {x} {y} {z}"))
 
+
+@bot.message_handler(commands=["clicker"])
+def text(message):
+    x = 0
+
+    markup = types.InlineKeyboardMarkup()
+    buttom = types.InlineKeyboardButton("click", callback_data="1")
+    markup.row(buttom)
+    bot.send_message(message.chat.id,f"{x}",reply_markup=markup)
+
+@bot.callback_query_handler(func=lambda call: True)
+def answer(call):
+    if call.data == '1':
+        x = x + 1
+        bot.send_message(message.chat.id, f"{x}")
 
 @bot.message_handler(commands=["game"])
 def text(message):
     print(message)
     bot.send_message(message.chat.id, f" В этой игре я загадываю число от 1 до 100, и вы угадываете, а я говорю: больше или меньше")
 
-@bot.message_handler(func=lambda message:True)
+
+@bot.message_handler(func=lambda me0ssage:True)
 def text(message):
+    x = random.randint(1, 100)
     try:
         print(x)
         y = int(message.text)
